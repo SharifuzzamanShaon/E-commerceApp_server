@@ -5,7 +5,6 @@ import router from "./router";
 import bodyParser from "body-parser";
 var cookieParser = require('cookie-parser')
 require("dotenv").config();
-require("dotenv").config();
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
