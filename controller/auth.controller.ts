@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import error from "../utils/error";
 import assignToken from "../utils/jwt";
-import { valid } from "joi";
 
 const prisma = new PrismaClient();
 
