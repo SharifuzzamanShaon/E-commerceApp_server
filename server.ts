@@ -3,9 +3,17 @@ import express from 'express';
 const app:Express = express();
 import router from "./router";
 import bodyParser from "body-parser";
+
+const cors = require("cors");
+
+
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true
+}))
 var cookieParser = require('cookie-parser')
 require("dotenv").config();
-
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
