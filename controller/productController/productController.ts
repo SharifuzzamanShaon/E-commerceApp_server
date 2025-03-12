@@ -30,7 +30,7 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
                     data: {
                         name,
                         price,
-                        imageUrl:result.secure_url,
+                        imageUrl: result.secure_url,
                         description,
                         categoryId,
                         stock,
