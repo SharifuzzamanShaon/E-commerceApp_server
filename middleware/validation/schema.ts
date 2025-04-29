@@ -17,6 +17,12 @@ export const schema = {
     image: Joi.string().optional(),
     categoryId: Joi.string().required(),
     stock: Joi.number().required(),
+    color: Joi.array()
+    .items(Joi.string().valid('RED', 'GREEN', 'BLUE', 'YELLOW', 'ORANGE', 'PURPLE', 'PINK', 'BLACK', 'WHITE', 'GRAY'))
+    .optional(),
+  size: Joi.array()
+    .items(Joi.string().valid('XS', 'S', 'M', 'L', 'XL', 'XXL'))
+    .optional(),
 
   }),
   category:Joi.object({
