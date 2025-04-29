@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { promises } from 'dns';
+
 const prisma = new PrismaClient();
 const createCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
