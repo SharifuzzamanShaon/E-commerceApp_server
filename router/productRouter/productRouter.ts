@@ -3,9 +3,11 @@ import { getAllProducts, createProduct, getNewArrivals, getProductByCategory } f
 import { runValidation } from "../../middleware/validation";
 import { schema } from "../../middleware/validation/schema";
 import { addSubcategoy, createCategory, getAllCategories } from "../../controller/categoryController/categoryController";
+import { filterProduct } from "../../controller/productController/productController";
 const router = Router();
 
-router.get("/", getAllProducts);
+// router.get("/", getAllProducts);
+router.get("/", filterProduct);
 router.get("/product-by-category/:categoryId", getProductByCategory);
 router.post("/", runValidation(schema.product),  createProduct);
 router.post("/create-category", runValidation(schema.category),  createCategory);
