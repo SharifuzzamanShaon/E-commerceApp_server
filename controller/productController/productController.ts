@@ -14,14 +14,51 @@ const getAllProducts = async (req: Request, res: Response) => {
             .send({ message: "Error while fetching products", error });
     }
 };
+const filterProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { categoryId, color, size, price } = req.query;
+        if (!categoryId && !color && !size && !price) {
+            const products = await prisma.product.findMany();
+            res.status(200).send(products);
+            return;
+        } else {
+            const filter: any = {};
+            if (categoryId) filter.subSubCategoryId = categoryId;
+            if (price) {
+                filter.price = {
+                    lte: parseFloat(price as string),
+                };
+            }
+            if (color) {
+                const colorArray = Array.isArray(color) ? color : [color];
+                filter.color = {
+                    hasSome: colorArray,
+                };
+            }
+            if (size) {
+                const sizeArray = Array.isArray(size) ? size : [size];
+                filter.size = {
+                    hasSome: sizeArray,
+                };
+            }
+            const products = await prisma.product.findMany({
+                where: filter,
+            });
+            res.status(200).json(products);
+        }
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getProductByCategory = async (req: Request, res: Response) => {
     try {
         const { categoryId } = req.params;
         const products = await prisma.product.findMany({
-            where: {    
+            where: {
                 subSubCategory: {
                     id: categoryId
-                }, 
+                },
                 OR: [
                     {
                         subCategory: {
@@ -108,4 +145,4 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
         next(error)
     }
 };
-export { getAllProducts, getProductByCategory, createProduct, getNewArrivals };
+export { getAllProducts, getProductByCategory, createProduct, getNewArrivals, filterProduct };
