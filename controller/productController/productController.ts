@@ -25,8 +25,10 @@ const filterProduct = async (req: Request, res: Response, next: NextFunction) =>
             const filter: any = {};
             if (categoryId) filter.subSubCategoryId = categoryId;
             if (price) {
+                const [minPrice, maxPrice] = (price as string).split("-");
                 filter.price = {
-                    lte: parseFloat(price as string),
+                    gte: minPrice,
+                    lte: maxPrice
                 };
             }
             if (color) {
